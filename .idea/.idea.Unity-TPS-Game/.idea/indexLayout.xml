@@ -19,7 +19,10 @@
       <Path>.idea</Path>
       <Path>Library</Path>
       <Path>Logs</Path>
+      <Path>MacOS</Path>
+      <Path>Temp</Path>
       <Path>UserSettings</Path>
+      <Path>Windows</Path>
       <Path>obj</Path>
     </explicitExcludes>
   </component>

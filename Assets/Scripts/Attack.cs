@@ -138,7 +138,7 @@ public class Attack : MonoBehaviour
                 }
             }
         }
-        if (currentBulletNum <= 0 && clipNum > 0)
+        else if (currentBulletNum <= 0 && clipNum > 0)
         {
             ReloadGun();
             clipNum--;

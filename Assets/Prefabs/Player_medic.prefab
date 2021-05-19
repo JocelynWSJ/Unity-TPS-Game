@@ -4766,7 +4766,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6f57e3384acd5dc45bb4df479f10466b, type: 2}
+  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9578,7 +9578,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6f57e3384acd5dc45bb4df479f10466b, type: 2}
+  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10873,14 +10873,20 @@ MonoBehaviour:
   muzzleFlash_burst: {fileID: 279646294}
   _fireMode: 0
   numBullet_burst: 3
-  firetime: 0.91
+  firetime_single: 1
+  firetime_loop: 1
   damageAmount: 1
   bulletNumPerClip: 30
   currentBulletNum: 30
+  clipNum: 0
+  attackPeriod: 0.2
+  shootAC: {fileID: 8300000, guid: 38b450e2adcb6f542acc8c1d423bd8dc, type: 3}
+  reloadAC: {fileID: 0}
   AimImg: {fileID: 0}
   curBulletGO: {fileID: 0}
   maxBulletGO: {fileID: 0}
-  shootAC: {fileID: 8300000, guid: 38b450e2adcb6f542acc8c1d423bd8dc, type: 3}
+  clipGO: {fileID: 0}
+  modeGO: {fileID: 0}
 --- !u!114 &8149768329770298264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10897,9 +10903,8 @@ MonoBehaviour:
   jumpSpeed: 2.5
   rotationSpeed: 6
   _camera: {fileID: 8149768330349928876}
-  jumpButton: Jump
-  jumpHeight: 1.5
-  jumpIntertialForce: 10
+  walkAC: {fileID: 0}
+  pickUpAC: {fileID: 0}
 --- !u!114 &2095178982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10929,6 +10934,9 @@ MonoBehaviour:
   startingHealth: 5
   currentHealth: 0
   healthSlider: {fileID: 0}
+  sliderImg: {fileID: 0}
+  DamColor: {r: 0, g: 0, b: 0, a: 0}
+  colorSmoothing: 6
 --- !u!82 &2668117851839335862
 AudioSource:
   m_ObjectHideFlags: 0
