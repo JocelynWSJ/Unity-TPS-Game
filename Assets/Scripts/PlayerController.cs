@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [Tooltip("Max movement speed")]
     private Animator _animator;
-    private Rigidbody _rigidbody;
+    
     private CharacterController _characterController;
     public float moveSpeed = GameConstants.k_playerSpeed;
     public float jumpSpeed = GameConstants.k_jumpSpeed;
@@ -28,18 +28,16 @@ public class PlayerController : MonoBehaviour
     private float hAxis;                                      // Horizontal Axis.
     private float vAxis;                                      // Vertical Axis.
     
-    public Rigidbody GetRigidBody { get { return _rigidbody; } }
-    public Animator GetAnim { get { return _animator; } }
-    public CharacterController GetCharacterController { get { return _characterController; } }
+    [Header("Audios")]
+    private AudioSource playerAS;
+    public AudioClip walkAC;
+    public AudioClip pickUpAC;
     
-    public string jumpButton = "Jump";              // Default jump button.
-    public float jumpHeight = 1.5f;                 // Default jump height.
-    public float jumpIntertialForce = 10f;          // Default horizontal inertial force when jumping.
     // Start is called before the first frame update
     void Start()
     {
+        playerAS = GetComponent<AudioSource>();
         _animator = GetComponent<Animator> ();
-        _rigidbody = GetComponent<Rigidbody> ();
         _characterController = GetComponent<CharacterController>();
     }
 
@@ -102,35 +100,53 @@ public class PlayerController : MonoBehaviour
         _animator.SetFloat("SpeedY", movement.z);
         //print(movement);
         
+        //Audio
+        if (playerAS.isPlaying == false)
+        {
+            if (_characterController.isGrounded && movementRot.magnitude > 1f)
+            {
+                playerAS.Play();
+            }
+            
+        }
 
     }
 
     private void Update()
     {
-        // horizontal character rotation
+        if (GameManager.instance.GameOn)
         {
-            // 根据Y轴旋转
-            transform.Rotate(new Vector3(0f, (Input.GetAxisRaw(GameConstants.k_MouseAxisNameHorizontal) * rotationSpeed), 0f), Space.Self);
-        }
+            // horizontal character rotation
+            {
+                // 根据Y轴旋转
+                transform.Rotate(new Vector3(0f, (Input.GetAxisRaw(GameConstants.k_MouseAxisNameHorizontal) * rotationSpeed), 0f), Space.Self);
+            }
 
-        // vertical camera rotation
-        {
-            // add vertical inputs to the camera's vertical angle
-            _cameraVerticalAngle = Input.GetAxisRaw(GameConstants.k_MouseAxisNameVertical) * rotationSpeed * 0.4f;
+            // vertical camera rotation
+            {
+                // add vertical inputs to the camera's vertical angle
+                _cameraVerticalAngle = Input.GetAxisRaw(GameConstants.k_MouseAxisNameVertical) * rotationSpeed * 0.4f;
 
-            // Clamp旋转值
-            _cameraVerticalAngle = Mathf.Clamp(_cameraVerticalAngle, -60f, 60f);
+                // Clamp旋转值
+                _cameraVerticalAngle = Mathf.Clamp(_cameraVerticalAngle, -60f, 60f);
 
-            float yAngle = transform.rotation.eulerAngles.y;
-            var axis = Quaternion.AngleAxis(yAngle, Vector3.up) * Vector3.right;
-            // 以player为origin旋转
-            _camera.transform.RotateAround(transform.position + Vector3.up, axis, -_cameraVerticalAngle);
+                float yAngle = transform.rotation.eulerAngles.y;
+                var axis = Quaternion.AngleAxis(yAngle, Vector3.up) * Vector3.right;
+                // 以player为origin旋转
+                _camera.transform.RotateAround(transform.position + Vector3.up, axis, -_cameraVerticalAngle);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
+        
+    }
+
+    public void PickUp()
+    {
+        playerAS.PlayOneShot(pickUpAC);
     }
 
 }

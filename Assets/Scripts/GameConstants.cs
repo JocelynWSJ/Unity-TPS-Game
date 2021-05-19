@@ -24,4 +24,5 @@ public class GameConstants
     public const float k_playerSpeed                        = 55f;
     public const float k_jumpSpeed                          = 5f;
     public const float k_gravity                            = -0.06f;
+    
 }
